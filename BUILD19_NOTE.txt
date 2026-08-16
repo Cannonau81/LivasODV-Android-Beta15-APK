@@ -1,0 +1,25 @@
+BUILD 19 — PARITÀ GESTIONALE
+
+Obiettivo: riportare Android verso la struttura funzionale della Build 27 iPhone.
+
+NOVITÀ
+- Home senza login mantenuta.
+- Barra principale a 5 aree come iPhone: Direttivo / Soci / Servizi / Mezzi / Altro.
+- Direttivo con dashboard completa e accesso alle aree operative.
+- Soci: Aggiungi / Modifica / Elimina, dati anagrafici, ruolo, 118, PC, AIB, autista.
+- Mezzi: Aggiungi / Modifica / Elimina, targa, modello, km, assicurazione, revisione, note.
+- Magazzino: Aggiungi / Modifica / Elimina, categoria, quantità, soglia minima.
+- Turni: Aggiungi / Modifica / Elimina, area, data, inizio, fine, note. Fix Build 17 mantenuto.
+- Servizi: Aggiungi / Modifica / Elimina, tipo, data, origine, destinazione, note.
+- Comunicazioni: Aggiungi / Modifica / Elimina e urgenza.
+- Presidi: Aggiungi / Modifica / Elimina e disponibilità.
+- Servizio Civile OLP: area dedicata con inserimento operatori.
+- Altro: Magazzino, SC, Comunicazioni, Cittadini, Turni, Presidi, Ricerca, Backup, Scadenze,
+  Registro, Emergenze, Monitor PS118, Protezione Civile, Rescue Run.
+- Refresh Supabase disponibile dal Direttivo e dalle sezioni aperte.
+
+IMPORTANTE
+I pulsanti di modifica della Build 19 aggiornano immediatamente il repository locale dell'app.
+La sincronizzazione di lettura Supabase resta attiva come nelle build precedenti. La scrittura remota
+CRUD verrà collegata progressivamente con policy RLS dedicate, evitando di rendere il database scrivibile
+senza autenticazione.

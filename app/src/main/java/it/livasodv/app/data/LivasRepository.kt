@@ -26,8 +26,11 @@ class LivasRepository {
  fun upsertPresidio(v:Presidio){_presidi.value=_presidi.value.filterNot{it.id==v.id}+v}
  fun deletePresidio(id:String){_presidi.value=_presidi.value.filterNot{it.id==id}}
  fun upsertShift(v:Shift){_shifts.value=_shifts.value.filterNot{it.id==v.id}+v}
+ fun deleteShift(id:String){_shifts.value=_shifts.value.filterNot{it.id==id}}
  fun upsertService(v:Service){_services.value=_services.value.filterNot{it.id==v.id}+v}
+ fun deleteService(id:String){_services.value=_services.value.filterNot{it.id==id}}
  fun upsertCommunication(v:Communication){_communications.value=_communications.value.filterNot{it.id==v.id}+v}
+ fun deleteCommunication(id:String){_communications.value=_communications.value.filterNot{it.id==id}}
  fun upsertCitizenRequest(v:CitizenRequest){_citizenRequests.value=_citizenRequests.value.filterNot{it.id==v.id}+v}
  fun upsertCivilVolunteer(v:CivilVolunteer){_civilVolunteers.value=_civilVolunteers.value.filterNot{it.id==v.id}+v}
  fun upsertCivilRequest(v:CivilRequest){_civilRequests.value=_civilRequests.value.filterNot{it.id==v.id}+v}
