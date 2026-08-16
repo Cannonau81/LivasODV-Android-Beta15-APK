@@ -1,36 +1,297 @@
 package it.livasodv.app.feature
-import androidx.compose.foundation.layout.*
+
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Campaign
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Emergency
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Inventory2
+import androidx.compose.material.icons.filled.MedicalServices
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.School
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import it.livasodv.app.data.*
+import it.livasodv.app.data.AppGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SectionList(title:String, rows:List<Pair<String,String>>, icon:@Composable()->Unit, onAdd:(()->Unit)?=null) {
-    Scaffold(topBar={TopAppBar(title={Text(title)},actions={if(onAdd!=null)IconButton(onClick=onAdd){Icon(Icons.Default.Add,"Aggiungi")}})}) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding),contentPadding=PaddingValues(12.dp)) {
-            if(rows.isEmpty()) item { Text("Nessun elemento registrato",Modifier.padding(24.dp)) }
-            else items(rows) { row ->
-                ListItem(headlineContent={Text(row.first)},supportingContent={Text(row.second)},leadingContent=icon)
-                HorizontalDivider()
+fun SectionList(
+    title: String,
+    rows: List<Pair<String, String>>,
+    icon: @Composable () -> Unit
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(title)
+                }
+            )
+        }
+    ) { padding ->
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentPadding = PaddingValues(12.dp)
+        ) {
+
+            if (rows.isEmpty()) {
+
+                item {
+                    Text(
+                        text = "Nessun elemento registrato",
+                        modifier = Modifier.padding(24.dp)
+                    )
+                }
+
+            } else {
+
+                items(rows) { row ->
+
+                    ListItem(
+                        headlineContent = {
+                            Text(row.first)
+                        },
+                        supportingContent = {
+                            Text(row.second)
+                        },
+                        leadingContent = icon
+                    )
+
+                    HorizontalDivider()
+                }
             }
         }
     }
 }
-@Composable fun MembersScreen(){val r=AppGraph.repository;val x by r.members.collectAsState();SectionList("Soci",x.map{"${it.firstName} ${it.lastName}" to it.role},{Icon(Icons.Default.Group,null)})}
-@Composable fun VehiclesScreen(){val r=AppGraph.repository;val x by r.vehicles.collectAsState();SectionList("Mezzi",x.map{it.name to it.licensePlate.ifBlank{it.makeModel}},{Icon(Icons.Default.DirectionsCar,null)})}
-@Composable fun WarehouseScreen(){val r=AppGraph.repository;val x by r.warehouse.collectAsState();SectionList("Magazzino",x.map{it.name to "Quantità: ${it.quantity}"},{Icon(Icons.Default.Inventory2,null)})}
-@Composable fun PresidiScreen(){val r=AppGraph.repository;val x by r.presidi.collectAsState();SectionList("Presidi",x.map{it.name to "Quantità: ${it.quantity}"},{Icon(Icons.Default.MedicalServices,null)})}
-@Composable fun ShiftsScreen(){val r=AppGraph.repository;val x by r.shifts.collectAsState();SectionList("Turni",x.map{it.title to "${it.date} ${it.start}"},{Icon(Icons.Default.CalendarMonth,null)})}
-@Composable fun ServicesScreen(){val r=AppGraph.repository;val x by r.services.collectAsState();SectionList("Servizi",x.map{it.title to "${it.fromPlace} → ${it.toPlace}"},{Icon(Icons.Default.MedicalServices,null)})}
-@Composable fun CommunicationsScreen(){val r=AppGraph.repository;val x by r.communications.collectAsState();SectionList("Comunicazioni",x.map{it.title to it.date},{Icon(Icons.Default.Campaign,null)})}
-@Composable fun CitizenRequestsScreen(){val r=AppGraph.repository;val x by r.citizenRequests.collectAsState();SectionList("Richieste cittadini",x.map{it.requester to "${it.kind} · ${it.status}"},{Icon(Icons.Default.Person,null)})}
-@Composable fun CivilServiceScreen(){val r=AppGraph.repository;val x by r.civilVolunteers.collectAsState();SectionList("Servizio Civile",x.map{"${it.firstName} ${it.lastName}" to if(it.active)"Attivo" else "Non attivo"},{Icon(Icons.Default.School,null)})}
-@Composable fun AuditScreen(){val r=AppGraph.repository;val x by r.audit.collectAsState();SectionList("Registro attività",x.map{it.action to "${it.area} · ${it.detail}"},{Icon(Icons.Default.History,null)})}
-@Composable fun MissionsScreen(){val r=AppGraph.repository;val x by r.missions.collectAsState();SectionList("Operativo",x.map{it.title to "${it.status} · ${it.location}"},{Icon(Icons.Default.Emergency,null)})}
+
+@Composable
+fun MembersScreen() {
+    val repo = AppGraph.repository
+    val members by repo.members.collectAsState()
+
+    SectionList(
+        title = "Soci",
+        rows = members.map {
+            "${it.firstName} ${it.lastName}" to it.role
+        },
+        icon = {
+            Icon(
+                Icons.Default.Group,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun VehiclesScreen() {
+    val repo = AppGraph.repository
+    val vehicles by repo.vehicles.collectAsState()
+
+    SectionList(
+        title = "Mezzi",
+        rows = vehicles.map {
+            it.name to it.licensePlate.ifBlank {
+                it.makeModel
+            }
+        },
+        icon = {
+            Icon(
+                Icons.Default.DirectionsCar,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun WarehouseScreen() {
+    val repo = AppGraph.repository
+    val items by repo.warehouse.collectAsState()
+
+    SectionList(
+        title = "Magazzino",
+        rows = items.map {
+            it.name to "Quantità: ${it.quantity}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.Inventory2,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun PresidiScreen() {
+    val repo = AppGraph.repository
+    val items by repo.presidi.collectAsState()
+
+    SectionList(
+        title = "Presidi",
+        rows = items.map {
+            it.name to "Quantità: ${it.quantity}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.MedicalServices,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun ShiftsScreen() {
+    val repo = AppGraph.repository
+    val shifts by repo.shifts.collectAsState()
+
+    SectionList(
+        title = "Turni",
+        rows = shifts.map {
+            it.title to "${it.date} ${it.start}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.CalendarMonth,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun ServicesScreen() {
+    val repo = AppGraph.repository
+    val services by repo.services.collectAsState()
+
+    SectionList(
+        title = "Servizi",
+        rows = services.map {
+            it.title to "${it.fromPlace} → ${it.toPlace}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.MedicalServices,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun CommunicationsScreen() {
+    val repo = AppGraph.repository
+    val communications by repo.communications.collectAsState()
+
+    SectionList(
+        title = "Comunicazioni",
+        rows = communications.map {
+            it.title to it.date
+        },
+        icon = {
+            Icon(
+                Icons.Default.Campaign,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun CitizenRequestsScreen() {
+    val repo = AppGraph.repository
+    val requests by repo.citizenRequests.collectAsState()
+
+    SectionList(
+        title = "Richieste cittadini",
+        rows = requests.map {
+            it.requester to "${it.kind} · ${it.status}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.Person,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun CivilServiceScreen() {
+    val repo = AppGraph.repository
+    val volunteers by repo.civilVolunteers.collectAsState()
+
+    SectionList(
+        title = "Servizio Civile",
+        rows = volunteers.map {
+            "${it.firstName} ${it.lastName}" to
+                if (it.active) "Attivo" else "Non attivo"
+        },
+        icon = {
+            Icon(
+                Icons.Default.School,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun AuditScreen() {
+    val repo = AppGraph.repository
+    val events by repo.audit.collectAsState()
+
+    SectionList(
+        title = "Registro attività",
+        rows = events.map {
+            it.action to "${it.area} · ${it.detail}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.History,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun MissionsScreen() {
+    val repo = AppGraph.repository
+    val missions by repo.missions.collectAsState()
+
+    SectionList(
+        title = "Operativo",
+        rows = missions.map {
+            it.title to "${it.status} · ${it.location}"
+        },
+        icon = {
+            Icon(
+                Icons.Default.Emergency,
+                contentDescription = null
+            )
+        }
+    )
+}
