@@ -1,0 +1,16 @@
+BUILD 16 UI PARITY
+Questa versione incorpora i fix che hanno portato GitHub Actions al verde e rinnova Login + Home.
+
+Per aggiornare il repository GitHub:
+- sostituire il contenuto del repository con questa Build 16 oppure caricare i file modificati;
+- mantenere il repository privato;
+- dopo il commit GitHub Actions parte da solo;
+- se il run è verde, scaricare Artifact LivasODV-Android-APK-Build16.
+
+Modifiche principali:
+- logo 3D ufficiale iOS portato su Android;
+- login rosso/nero professionale;
+- home molto più vicina alla Build 27 iPhone;
+- tile completi e barra inferiore;
+- Supabase login/sync mantenuti;
+- fix compilazione già incorporati: AGP 8.10.1, compileSdk 36, Gradle 8.11.1, modelli duplicati rimossi.

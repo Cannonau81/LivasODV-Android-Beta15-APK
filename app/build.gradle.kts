@@ -10,8 +10,8 @@ android {
         applicationId="it.livasodv.app"
         minSdk=26
         targetSdk=35
-        versionCode=15
-        versionName="1.5.0-beta"
+        versionCode=16
+        versionName="1.6.0-beta"
         buildConfigField("String","SUPABASE_URL","\"https://bgntmdjbrhabydfoobhr.supabase.co\"")
         buildConfigField("String","SUPABASE_PUBLISHABLE_KEY","\"sb_publishable_xBAOXhBDIay3f1pfhOdWeg_MII_Jsta\"")
     }
