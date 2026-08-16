@@ -5,7 +5,7 @@ plugins {
  id("org.jetbrains.kotlin.plugin.compose"); id("org.jetbrains.kotlin.plugin.serialization")
 }
 android {
- namespace="it.livasodv.app"; compileSdk=35
+ namespace="it.livasodv.app"; compileSdk=36
  defaultConfig {
         applicationId="it.livasodv.app"
         minSdk=26
