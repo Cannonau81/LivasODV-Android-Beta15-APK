@@ -61,7 +61,7 @@ fun MembersScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) MemberEditor(null, onDismiss = { adding = false }) { repo.upsertMember(it); adding = false }
+    if (adding) MemberEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertMember(it); adding = false })
     editing?.let { current ->
         MemberEditor(current, onDismiss = { editing = null }, onSave = { repo.upsertMember(it); editing = null }, onDelete = { repo.deleteMember(current.id); editing = null })
     }
@@ -140,7 +140,7 @@ fun VehiclesScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) VehicleEditor(null, { adding = false }) { repo.upsertVehicle(it); adding = false }
+    if (adding) VehicleEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertVehicle(it); adding = false })
     editing?.let { v -> VehicleEditor(v, { editing = null }, { repo.upsertVehicle(it); editing = null }, { repo.deleteVehicle(v.id); editing = null }) }
 }
 
@@ -193,7 +193,7 @@ fun WarehouseScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) WarehouseEditor(null, { adding = false }) { repo.upsertWarehouse(it); adding = false }
+    if (adding) WarehouseEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertWarehouse(it); adding = false })
     editing?.let { item -> WarehouseEditor(item, { editing = null }, { repo.upsertWarehouse(it); editing = null }, { repo.deleteWarehouse(item.id); editing = null }) }
 }
 
@@ -239,7 +239,7 @@ fun ShiftsScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) ShiftEditor(null, { adding = false }) { repo.upsertShift(it); adding = false }
+    if (adding) ShiftEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertShift(it); adding = false })
     editing?.let { s -> ShiftEditor(s, { editing = null }, { repo.upsertShift(it); editing = null }, { repo.deleteShift(s.id); editing = null }) }
 }
 
@@ -276,7 +276,7 @@ fun ServicesScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) ServiceEditor(null, { adding = false }) { repo.upsertService(it); adding = false }
+    if (adding) ServiceEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertService(it); adding = false })
     editing?.let { s -> ServiceEditor(s, { editing = null }, { repo.upsertService(it); editing = null }, { repo.deleteService(s.id); editing = null }) }
 }
 
@@ -313,7 +313,7 @@ fun CommunicationsScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) CommunicationEditor(null, { adding = false }) { repo.upsertCommunication(it); adding = false }
+    if (adding) CommunicationEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertCommunication(it); adding = false })
     editing?.let { c -> CommunicationEditor(c, { editing = null }, { repo.upsertCommunication(it); editing = null }, { repo.deleteCommunication(c.id); editing = null }) }
 }
 
@@ -346,7 +346,7 @@ fun PresidiScreen() {
             item { Spacer(Modifier.height(90.dp)) }
         }
     }
-    if (adding) PresidioEditor(null, { adding = false }) { repo.upsertPresidio(it); adding = false }
+    if (adding) PresidioEditor(null, onDismiss = { adding = false }, onSave = { repo.upsertPresidio(it); adding = false })
     editing?.let { p -> PresidioEditor(p, { editing = null }, { repo.upsertPresidio(it); editing = null }, { repo.deletePresidio(p.id); editing = null }) }
 }
 

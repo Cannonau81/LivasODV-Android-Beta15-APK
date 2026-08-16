@@ -1,0 +1,3 @@
+BUILD 19 FIX
+Corretto binding delle trailing lambda nei dialog editor Kotlin.
+Le callback di creazione ora usano esplicitamente onSave= per Soci, Mezzi, Magazzino, Turni, Servizi, Comunicazioni e Presidi.
