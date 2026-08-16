@@ -39,44 +39,29 @@ fun SectionList(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(title)
-                }
-            )
+            TopAppBar(title = { Text(title) })
         }
     ) { padding ->
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
             contentPadding = PaddingValues(12.dp)
         ) {
-
             if (rows.isEmpty()) {
-
                 item {
                     Text(
                         text = "Nessun elemento registrato",
                         modifier = Modifier.padding(24.dp)
                     )
                 }
-
             } else {
-
                 items(rows) { row ->
-
                     ListItem(
-                        headlineContent = {
-                            Text(row.first)
-                        },
-                        supportingContent = {
-                            Text(row.second)
-                        },
+                        headlineContent = { Text(row.first) },
+                        supportingContent = { Text(row.second) },
                         leadingContent = icon
                     )
-
                     HorizontalDivider()
                 }
             }
@@ -84,22 +69,22 @@ fun SectionList(
     }
 }
 
+private fun formatItalianDate(iso: String): String {
+    val p = iso.split("-")
+    return if (p.size == 3) "${p[2]}/${p[1]}/${p[0]}" else iso
+}
+
+private fun shortTime(value: String): String =
+    if (value.length >= 5) value.substring(0, 5) else value
+
 @Composable
 fun MembersScreen() {
     val repo = AppGraph.repository
     val members by repo.members.collectAsState()
-
     SectionList(
-        title = "Soci",
-        rows = members.map {
-            "${it.firstName} ${it.lastName}" to it.role
-        },
-        icon = {
-            Icon(
-                Icons.Default.Group,
-                contentDescription = null
-            )
-        }
+        "Soci",
+        members.map { "${it.firstName} ${it.lastName}" to it.role },
+        { Icon(Icons.Default.Group, null) }
     )
 }
 
@@ -107,58 +92,32 @@ fun MembersScreen() {
 fun VehiclesScreen() {
     val repo = AppGraph.repository
     val vehicles by repo.vehicles.collectAsState()
-
     SectionList(
-        title = "Mezzi",
-        rows = vehicles.map {
-            it.name to it.licensePlate.ifBlank {
-                it.makeModel
-            }
-        },
-        icon = {
-            Icon(
-                Icons.Default.DirectionsCar,
-                contentDescription = null
-            )
-        }
+        "Mezzi",
+        vehicles.map { it.name to it.licensePlate.ifBlank { it.makeModel } },
+        { Icon(Icons.Default.DirectionsCar, null) }
     )
 }
 
 @Composable
 fun WarehouseScreen() {
     val repo = AppGraph.repository
-    val items by repo.warehouse.collectAsState()
-
+    val entries by repo.warehouse.collectAsState()
     SectionList(
-        title = "Magazzino",
-        rows = items.map {
-            it.name to "Quantità: ${it.quantity}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.Inventory2,
-                contentDescription = null
-            )
-        }
+        "Magazzino",
+        entries.map { it.name to "Quantità: ${it.quantity}" },
+        { Icon(Icons.Default.Inventory2, null) }
     )
 }
 
 @Composable
 fun PresidiScreen() {
     val repo = AppGraph.repository
-    val items by repo.presidi.collectAsState()
-
+    val entries by repo.presidi.collectAsState()
     SectionList(
-        title = "Presidi",
-        rows = items.map {
-            it.name to "Quantità: ${it.quantity}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.MedicalServices,
-                contentDescription = null
-            )
-        }
+        "Presidi",
+        entries.map { it.name to "Quantità: ${it.quantity}" },
+        { Icon(Icons.Default.MedicalServices, null) }
     )
 }
 
@@ -169,15 +128,23 @@ fun ShiftsScreen() {
 
     SectionList(
         title = "Turni",
-        rows = shifts.map {
-            it.title to "${it.date} ${it.start}"
+        rows = shifts.map { shift ->
+            val date = formatItalianDate(shift.date)
+            val start = shortTime(shift.start)
+            val end = shortTime(shift.end)
+            val time = when {
+                start.isNotBlank() && end.isNotBlank() -> "$start–$end"
+                start.isNotBlank() -> start
+                else -> "Orario da definire"
+            }
+            val note = shift.notes.trim()
+            val detail = buildString {
+                append("$date · $time")
+                if (note.isNotBlank()) append("\n$note")
+            }
+            (if (shift.title.isBlank()) "Turno" else shift.title) to detail
         },
-        icon = {
-            Icon(
-                Icons.Default.CalendarMonth,
-                contentDescription = null
-            )
-        }
+        icon = { Icon(Icons.Default.CalendarMonth, null) }
     )
 }
 
@@ -185,18 +152,10 @@ fun ShiftsScreen() {
 fun ServicesScreen() {
     val repo = AppGraph.repository
     val services by repo.services.collectAsState()
-
     SectionList(
-        title = "Servizi",
-        rows = services.map {
-            it.title to "${it.fromPlace} → ${it.toPlace}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.MedicalServices,
-                contentDescription = null
-            )
-        }
+        "Servizi",
+        services.map { it.title to "${it.fromPlace} → ${it.toPlace}" },
+        { Icon(Icons.Default.MedicalServices, null) }
     )
 }
 
@@ -204,18 +163,10 @@ fun ServicesScreen() {
 fun CommunicationsScreen() {
     val repo = AppGraph.repository
     val communications by repo.communications.collectAsState()
-
     SectionList(
-        title = "Comunicazioni",
-        rows = communications.map {
-            it.title to it.date
-        },
-        icon = {
-            Icon(
-                Icons.Default.Campaign,
-                contentDescription = null
-            )
-        }
+        "Comunicazioni",
+        communications.map { it.title to it.date },
+        { Icon(Icons.Default.Campaign, null) }
     )
 }
 
@@ -223,18 +174,10 @@ fun CommunicationsScreen() {
 fun CitizenRequestsScreen() {
     val repo = AppGraph.repository
     val requests by repo.citizenRequests.collectAsState()
-
     SectionList(
-        title = "Richieste cittadini",
-        rows = requests.map {
-            it.requester to "${it.kind} · ${it.status}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.Person,
-                contentDescription = null
-            )
-        }
+        "Richieste cittadini",
+        requests.map { it.requester to "${it.kind} · ${it.status}" },
+        { Icon(Icons.Default.Person, null) }
     )
 }
 
@@ -242,19 +185,13 @@ fun CitizenRequestsScreen() {
 fun CivilServiceScreen() {
     val repo = AppGraph.repository
     val volunteers by repo.civilVolunteers.collectAsState()
-
     SectionList(
-        title = "Servizio Civile",
-        rows = volunteers.map {
+        "Servizio Civile",
+        volunteers.map {
             "${it.firstName} ${it.lastName}" to
                 if (it.active) "Attivo" else "Non attivo"
         },
-        icon = {
-            Icon(
-                Icons.Default.School,
-                contentDescription = null
-            )
-        }
+        { Icon(Icons.Default.School, null) }
     )
 }
 
@@ -262,18 +199,10 @@ fun CivilServiceScreen() {
 fun AuditScreen() {
     val repo = AppGraph.repository
     val events by repo.audit.collectAsState()
-
     SectionList(
-        title = "Registro attività",
-        rows = events.map {
-            it.action to "${it.area} · ${it.detail}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.History,
-                contentDescription = null
-            )
-        }
+        "Registro attività",
+        events.map { it.action to "${it.area} · ${it.detail}" },
+        { Icon(Icons.Default.History, null) }
     )
 }
 
@@ -281,17 +210,9 @@ fun AuditScreen() {
 fun MissionsScreen() {
     val repo = AppGraph.repository
     val missions by repo.missions.collectAsState()
-
     SectionList(
-        title = "Operativo",
-        rows = missions.map {
-            it.title to "${it.status} · ${it.location}"
-        },
-        icon = {
-            Icon(
-                Icons.Default.Emergency,
-                contentDescription = null
-            )
-        }
+        "Operativo",
+        missions.map { it.title to "${it.status} · ${it.location}" },
+        { Icon(Icons.Default.Emergency, null) }
     )
 }

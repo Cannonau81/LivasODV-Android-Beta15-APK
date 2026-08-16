@@ -10,7 +10,7 @@ class SupabaseSync(private val repo:LivasRepository=AppGraph.repository){
   vehicles.forEach(repo::upsertVehicle)
   val warehouse=db.from("warehouse_items").select().decodeList<WarehouseRow>().map{WarehouseItem(it.id,it.name,it.category?:"",it.quantity,notes=it.notes?:"")}
   warehouse.forEach(repo::upsertWarehouse)
-  val shifts=db.from("shifts").select().decodeList<ShiftRow>().map{Shift(it.id,it.title,it.date,it.start?:"",it.end?:"",notes=it.notes?:"")}
+  val shifts=db.from("shifts").select().decodeList<ShiftRow>().map{Shift(it.id,it.area,it.shiftDate,it.start?:"",it.end?:"",notes=it.notes?:"")}
   shifts.forEach(repo::upsertShift)
   val services=db.from("services").select().decodeList<ServiceRow>().map{Service(it.id,it.title,it.date,it.fromPlace?:"",it.toPlace?:"",notes=it.notes?:"")}
   services.forEach(repo::upsertService)
