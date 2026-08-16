@@ -1,0 +1,7 @@
+BUILD 18 - HOME DIRETTA + FIX TURNI BUILD 17
+- Rimossa schermata login iniziale.
+- Apertura diretta sulla Home.
+- Rimosso pulsante Esci dalla barra inferiore.
+- Mantenuto SupabaseSync all'avvio.
+- Incorporato fix Turni Build 17 (shift_date, area, 09:00–13:00, note).
+- versionCode 18 / versionName 1.8.0-beta.

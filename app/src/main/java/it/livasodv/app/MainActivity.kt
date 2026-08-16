@@ -38,18 +38,13 @@ data class HomeTool(val route:String,val title:String,val subtitle:String,val ic
 
 @Composable
 fun LivasAndroidApp(){
-    var loggedIn by remember{mutableStateOf(false)}
     var screen by remember{mutableStateOf("home")}
     var syncError by remember{mutableStateOf<String?>(null)}
 
-    LaunchedEffect(loggedIn){
-        if(loggedIn){
-            try{SupabaseSync().refreshCore();syncError=null}
-            catch(e:Exception){syncError=e.message}
-        }
+    LaunchedEffect(Unit){
+        try{SupabaseSync().refreshCore();syncError=null}
+        catch(e:Exception){syncError=e.message}
     }
-
-    if(!loggedIn){LoginScreen{loggedIn=true};return}
 
     if(screen!="home"){
         BackHandler{screen="home"}
@@ -86,11 +81,11 @@ fun LivasAndroidApp(){
                 }
             }
         }
-    } else HomeScreen(syncError!=null,{screen=it}){loggedIn=false}
+    } else HomeScreen(syncError!=null,{screen=it})
 }
 
 @Composable
-fun HomeScreen(offline:Boolean,onOpen:(String)->Unit,onLogout:()->Unit){
+fun HomeScreen(offline:Boolean,onOpen:(String)->Unit){
     val tools=listOf(
         HomeTool("turni","I MIEI TURNI","Prossimi servizi",Icons.Default.CalendarMonth),
         HomeTool("servizi","SERVIZI SOCIALI","Richieste",Icons.Default.MedicalServices),
@@ -120,7 +115,6 @@ fun HomeScreen(offline:Boolean,onOpen:(String)->Unit,onLogout:()->Unit){
                 NavigationBarItem(false,{onOpen("turni")},{Icon(Icons.Default.CalendarMonth,null)},label={Text("Turni")})
                 NavigationBarItem(false,{onOpen("servizi")},{Icon(Icons.Default.MedicalServices,null)},label={Text("Servizi")})
                 NavigationBarItem(false,{onOpen("mezzi")},{Icon(Icons.Default.DirectionsCar,null)},label={Text("Mezzi")})
-                NavigationBarItem(false,onLogout,{Icon(Icons.Default.Logout,null)},label={Text("Esci")})
             }
         }
     ){padding->
