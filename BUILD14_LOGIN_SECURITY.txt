@@ -1,0 +1,9 @@
+BUILD 14 — LOGIN / SICUREZZA
+
+- Login Android usa Supabase Auth.
+- Campi email/password vuoti all'avvio.
+- Nessuna password applicativa deve essere codificata in Kotlin.
+- CREDENTIALI_LOGIN_PRIVATO.txt è fuori dal modulo app e inserito in .gitignore.
+- Il file privato non viene incluso nell'APK.
+- Password mascherata nell'interfaccia.
+- Tastiera email/password configurata correttamente.

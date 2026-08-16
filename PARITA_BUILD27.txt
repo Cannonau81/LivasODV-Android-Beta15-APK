@@ -1,0 +1,30 @@
+LÌ.V.A.S. O.D.V. — ANDROID BETA 1.0 / BUILD 27 PARITY
+
+Mappatura funzionale portata nel progetto Android:
+- Soci: rilevato nella Build 27 iOS
+- Mezzi: rilevato nella Build 27 iOS
+- Magazzino: rilevato nella Build 27 iOS
+- Presidi: rilevato nella Build 27 iOS
+- Turni: rilevato nella Build 27 iOS
+- Servizi: rilevato nella Build 27 iOS
+- Comunicazioni: rilevato nella Build 27 iOS
+- Servizio Civile: rilevato nella Build 27 iOS
+- Cittadini: rilevato nella Build 27 iOS
+- Emergenze: rilevato nella Build 27 iOS
+- Monitor PS 118: rilevato nella Build 27 iOS
+- Protezione Civile: rilevato nella Build 27 iOS
+- Passatempo: rilevato nella Build 27 iOS
+- Backup: rilevato nella Build 27 iOS
+- Ricerca globale: rilevato nella Build 27 iOS
+- Scadenze: rilevato nella Build 27 iOS
+- Registro attività: rilevato nella Build 27 iOS
+- Operativo: rilevato nella Build 27 iOS
+- Biometria: rilevato nella Build 27 iOS
+
+NOTE IMPORTANTI:
+- La struttura funzionale Android ora copre tutte le aree principali della Build 27.
+- CRUD e modelli Android sono predisposti per i dati associativi.
+- Supabase è condivisibile con iPhone tramite le stesse tabelle e RLS.
+- Le credenziali reali non sono copiate automaticamente nel progetto Android.
+- Monitor PS e allerte devono usare le stesse fonti/API effettivamente configurate lato iOS/backend.
+- Prima di Google Play servono test su dispositivo Android, Data Safety e firma AAB.

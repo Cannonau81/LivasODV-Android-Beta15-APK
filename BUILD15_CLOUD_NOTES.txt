@@ -1,0 +1,10 @@
+BUILD 15
+- GitHub Actions APK cloud build aggiunto.
+- Java 17.
+- Gradle 8.9.
+- Task :app:assembleDebug.
+- Controllo presenza APK.
+- SHA-256 dell'APK.
+- Upload artifact automatico.
+- Workflow separato per verifica AAB release.
+- Credenziali locali e keystore esclusi da Git.

@@ -1,0 +1,17 @@
+LÌ.V.A.S. ANDROID — BETA 1.3 BUILD 13
+
+FIX GRADLE
+- Rimosso android.kotlinOptions { jvmTarget = "17" }.
+- Migrato alla DSL Kotlin moderna:
+  kotlin {
+      compilerOptions {
+          jvmTarget.set(JvmTarget.JVM_17)
+      }
+  }
+- Aggiunto import org.jetbrains.kotlin.gradle.dsl.JvmTarget.
+- Java source/target compatibility resta Java 17.
+- Nessuna funzione dell'app rimossa.
+
+Dopo l'apertura:
+1. Android Studio > File > Sync Project with Gradle Files.
+2. Se appare un altro errore rosso, inviare screenshot completo del Build Output.

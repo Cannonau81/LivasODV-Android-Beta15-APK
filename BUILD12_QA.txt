@@ -1,0 +1,12 @@
+LÌ.V.A.S. ANDROID — BETA 1.2 BUILD 12
+Migliorie:
+- Kotlin/Compose compiler allineati alla configurazione Kotlin 2.x.
+- Navigazione con ritorno Home e Android Back.
+- Stato Offline visibile se la sincronizzazione iniziale fallisce.
+- Backup JSON realmente esportabile con Storage Access Framework.
+- Ripristino JSON realmente selezionabile.
+- Inserimento locale Soci e Mezzi funzionante.
+- Login e sync Supabase della Build 11 mantenuti.
+- Rescue Run giocabile mantenuto.
+- Nessuna service_role inclusa.
+Da verificare su Android Studio: Gradle Sync + compilazione + schema colonne Supabase/RLS.

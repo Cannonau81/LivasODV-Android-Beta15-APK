@@ -1,0 +1,7 @@
+SwiftUI -> Jetpack Compose
+ObservableObject -> ViewModel/StateFlow
+LocalAuthentication -> AndroidX Biometric
+File Protection -> private storage + Android Keystore
+UserNotifications -> Android Notifications/WorkManager
+Supabase Swift -> supabase-kt
+App Store -> Google Play AAB

@@ -1,0 +1,18 @@
+LÌ.V.A.S. ANDROID BETA 1.1 BUILD 11
+- Collegato al progetto Supabase reale li.v.a.s. alpha25.
+- Publishable key configurata; nessuna service_role.
+- Login Supabase email/password reale.
+- Sync iniziale reale: members, vehicles, warehouse_items, shifts, services, communications.
+- Deep link Auth predisposto: livasodv://auth.
+- Permesso biometrico.
+- Rescue Run ora giocabile.
+- Tutti i moduli Build 27 restano presenti.
+
+TEST NECESSARI SU ANDROID STUDIO/TELEFONO:
+1 Gradle Sync.
+2 Login con account Supabase valido.
+3 Verifica RLS e caricamento dati.
+4 Test offline.
+5 Test CRUD scrittura (fase immediatamente successiva dopo verifica schema esatto).
+6 Test notifiche/biometria.
+7 Generazione APK debug.

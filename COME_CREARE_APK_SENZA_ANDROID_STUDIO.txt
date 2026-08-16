@@ -1,0 +1,29 @@
+LÌ.V.A.S. O.D.V. — BUILD 15 CLOUD APK
+
+Questa versione può essere compilata su GitHub Actions senza Android Studio.
+
+PROCEDURA:
+1. Crea un repository GitHub PRIVATO vuoto.
+2. Carica il CONTENUTO della cartella LivasODV_Android_Beta_1_5_BUILD15_GITHUB_CLOUD
+   nella radice del repository. Devono vedersi subito:
+   app/
+   .github/
+   build.gradle.kts
+   settings.gradle.kts
+3. Apri la scheda Actions del repository.
+4. Seleziona "Crea APK Livas ODV".
+5. Premi "Run workflow".
+6. Attendi il completamento verde.
+7. Apri il run completato.
+8. In Artifacts scarica "LivasODV-Android-Beta15-APK".
+9. Dentro lo ZIP dell'artifact trovi app-debug.apk.
+10. Invia app-debug.apk al telefono Android e installalo autorizzando la fonte.
+
+SICUREZZA:
+- CREDENTIALI_LOGIN_PRIVATO.txt è escluso da Git tramite .gitignore.
+- File .jks/.keystore e keystore.properties sono esclusi.
+- Questo workflow crea un APK DEBUG, adatto ai test e già firmato con chiave debug.
+- Per pubblicazione definitiva serve un APK/AAB RELEASE firmato con chiave privata stabile.
+
+SE LA BUILD FALLISCE:
+Apri il run rosso > "Compila APK debug installabile" e copia/incolla l'errore.
